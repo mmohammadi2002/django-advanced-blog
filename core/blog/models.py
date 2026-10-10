@@ -1,6 +1,9 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
-# Create your models here.
+
+# getting user model objects
+User = get_user_model()
 
 class Post(models.Model):
     '''This is a class to define posts for blog app'''
