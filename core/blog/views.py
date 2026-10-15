@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, RedirectView, ListView, DetailView
+from django.views.generic import TemplateView, RedirectView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from .models import Post
 from django.shortcuts import get_object_or_404
+from .forms import PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 '''
 def indexView(request):
@@ -39,4 +41,35 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    
+
+
+'''
+class PostCreateView(FormView):
+    template_name = "contact.html"
+    form_class = PostForm
+    success_url = "/blog/post/"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+'''
+
+class PostCreateView(CreateView):
+    model = Post
+    # fields = ['author','title', 'content', 'status', 'category', 'published_date']
+    form_class = PostForm
+    success_url = '/blog/post/'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostEditView(UpdateView):
+    model = Post
+    form_class = PostForm
+    success_url = '/blog/post'
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    success_url = '/blog/post/'

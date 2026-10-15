@@ -9,6 +9,12 @@
     <h1>post lists</h1>
     {% for post in posts %}
         <a href="{% url 'blog:post-detail' pk=post.id %}"><h2>{{post.id}} - {{ post.title }}</h2></a>
+        <a href="{% url 'blog:post-edit' pk=post.id %}">
+            <h5>edit</h5>
+        </a>
+        <a href="{% url 'blog:post-delete' pk=post.id %}">
+            <h5>Delete</h5>
+        </a>
         <p>{{ post.content }}</p>
     {% endfor %}
 
