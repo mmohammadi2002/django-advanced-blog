@@ -4,6 +4,11 @@ from .models import Post
 from django.shortcuts import get_object_or_404
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
 # Create your views here.
 '''
 def indexView(request):
@@ -74,3 +79,8 @@ class PostEditView(LoginRequiredMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     success_url = '/blog/post/'
+
+
+@api_view()
+def api_post_list_view(request):
+    return Response({'name':'Mohammad'})
