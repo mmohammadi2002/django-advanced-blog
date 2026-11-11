@@ -1,23 +1,9 @@
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import (
-    IsAuthenticated,
     IsAuthenticatedOrReadOnly,
 )
-from rest_framework.response import Response
 from .serializers import PostSerializer, CategorySerializer
 from blog.models import Post, Category
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from rest_framework.generics import (
-    GenericAPIView,
-    ListAPIView,
-    ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-)
-from rest_framework import mixins
 from rest_framework import viewsets
-from rest_framework.decorators import action
 from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -30,7 +16,7 @@ def postlist(request):
         post = Post.objects.filter(status=True)
         serializers = PostSerializer(post, many=True)
         return Response(serializers.data)
-    
+
     elif request.method == 'POST':
         serializers = PostSerializer(data=request.data)
         serializers.is_valid(raise_exception=True)
@@ -46,7 +32,7 @@ def postdetail(request, id):
     if request.method == 'GET':
         serializers = PostSerializer(post)
         return Response(serializers.data)
-    
+
     elif request.method == 'PUT':
         serializers = PostSerializer(post, data=request.data)
         serializers.is_valid(raise_exception=True)
@@ -55,8 +41,8 @@ def postdetail(request, id):
 
     elif request.method == 'DELETE':
         post.delete()
-        return Response({'detail':'Item removed successfully'}, status=status.HTTP_204_NO_CONTENT)                   
-        
+        return Response({'detail':'Item removed successfully'}, status=status.HTTP_204_NO_CONTENT)
+
 
 
 """
@@ -106,7 +92,7 @@ class PostDetail(APIView):
         post = get_object_or_404(Post, pk=id, status=True)
         post.delete()
         return Response({'detail':'Item removed successfully'}, status=status.HTTP_204_NO_CONTENT)
-        
+
 '''
 
 '''

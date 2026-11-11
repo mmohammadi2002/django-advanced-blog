@@ -1,4 +1,5 @@
 [flake8]
+max-line-length = 88
 exclude =
     .git,
     .gitignore,
@@ -8,4 +9,5 @@ exclude =
     venv,
     .env,
     settings.py,
-    __init__
+    __init__,
+    migrations
