@@ -62,6 +62,8 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
 
 
+
+
 """
 class PostCreateView(FormView):
     template_name = "contact.html"
